@@ -11,16 +11,13 @@ class LinkedList:
     def append(self, data):
         new_node = Node(data)
         current_node = self.head
-
         while current_node.next != None:
             current_node = current_node.next
         current_node.next = new_node
 
-
     def length(self):
         counter = 0
         current_node = self.head
-
         while current_node.next != None:
             counter += 1
             current_node = current_node.next
@@ -29,17 +26,26 @@ class LinkedList:
     def content(self):
         elements = []
         current_node = self.head
-
         while current_node.next != None:
-            
+            current_node = current_node.next
+            elements.append(current_node.data)
+        print(elements)
+
+    #def delete(self):
 
 
-# add functionaility in the form of attributes and methods
-# select specific node
 
-# add new node
+# ------------------------------- TEST CASE --------------------------------- #
+test_list = LinkedList()
+print(f"List length: {test_list.length()}")
 
-# delete node
+test_list.append('Tony')
+test_list.append('Montana')
+test_list.append(12)
+test_list.append(True)
+
+test_list.content()
+print(f"List length: {test_list.length()}")
 
 
 
