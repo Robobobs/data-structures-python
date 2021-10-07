@@ -14,7 +14,6 @@ class LinkedList:
 
         while current_node.next != None:
             current_node = current_node.next
-
         current_node.next = new_node
 
     def get(self, index):
@@ -33,11 +32,28 @@ class LinkedList:
             print('ERROR: (get) index out of range!')
             return None
 
-    #def insert(self, index, data):
+    def insert(self, data, index):
+        new_node = Node(data)
+        current_node = self.head
+        list_length = self.length()
+        current_index = 0
 
+        if index in range(0, list_length):
+            while True:
+                last_node = current_node
+                current_node = current_node.next
+                if current_index == index:
+                    new_node.next = current_node
+                    last_node.next = new_node
+                    print(f"New node inserted at index {index}...")
+                    return
+                else:
+                    current_index += 1
+        else:
+            print('ERROR: (insert) index out of range!')
+            return
 
     #def update(self, index, data):
-
 
     def delete(self, index):
         list_length = self.length()
@@ -65,7 +81,6 @@ class LinkedList:
         while current_node.next != None:
             counter += 1
             current_node = current_node.next
-
         return counter
 
     def display(self):
@@ -75,7 +90,6 @@ class LinkedList:
         while current_node.next != None:
             current_node = current_node.next
             elements.append(current_node.data)
-
         print(elements)
 
 
@@ -93,12 +107,18 @@ test_list.append(12)            #2
 test_list.append(True)          #3
 
 test_list.display()
+
 print(f"List length: {test_list.length()}")
 print(f"Element at index 0: {test_list.get(0)}")
 print(f"Element at index 4: {test_list.get(4)}")
+
 test_list.delete(5)
 test_list.display()
+
 test_list.delete(2)
+test_list.display()
+
+test_list.insert('Test data inserted', 1)
 test_list.display()
 
 
