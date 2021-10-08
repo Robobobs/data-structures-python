@@ -162,8 +162,8 @@ test_list.display()
 # --------------------------------- NOTES ----------------------------------- #
 
 
-Linked list has no linier order. The order of the elements is controlled by the
-data structure and is unidirectional.
+Linked list has no linear order. The order of the elements is controlled by the
+data structure and is unidirectional for singly linked lists.
 
 Each node has a pointer which links to the next node in the list.
 
