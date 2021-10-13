@@ -1,11 +1,6 @@
-# TODO: import singly_linked_list module and functionality
-
-# TODO: write HashTable class.
-# NOTE: __init__ defines max size of array and initiallises all elements as empty
-#       linked list (head only)
-
 INITIAL_CAPACITY = 50
 MAX_LOAD_FACTOR = 0.7
+MIN_LOAD_FACTOR = 0.3 # Arbitrary figure. No idea if this is when to shrink existing table
 
 class Node:
 '''node class for use in chaining'''
@@ -29,26 +24,35 @@ class HashTable:
             hash_sum += ord(char)
         return hash_sum % self.capacity # setting to mod self.capacity ensures get_hash returns
                                         # values between 0 and the size of our list.
-    def rehash(self):
+
+    def rehash(self, max_min):
         '''re-hashes existing table and doubles its previous capacity'''
         NEW_CAPACITY = self.capacity * 2
+        self.lf = max_min
 
+        # TODO: figure out how to rehash existing table.
         new_hashtable = HashTable()
 
     def check_lf(self):
-        '''checks current load factor is not greater than MAX_LOAD_FACTOR'''
+        '''checks current load factor is between 0.3 and 0.7'''
         lf = self.size / self.capacity
 
         if lf >= MAX_LOAD_FACTOR:
             # TODO: write wrapper to monitor rehashing time and decorate self.rehash()
             print('Load factor is greater than 0.7. Table rehashing...')
-            self.rehash()
+            self.rehash('max') # correct place to call rehash() ??
+            return
+        if lf <= MIN_LOAD_FACTOR:
+            # TODO: write wrapper to monitor rehashing time and decorate self.rehash()
+            print('Load factor is less than 0.3. Table rehashing...')
+            self.rehash('min') # correct place to call rehash() ??
             return
         else:
             return
 
     def add(self, key, value):
         '''adds a new key, value pair into HashTable'''
+        self.check_lf()
         self.size += 1
         hash_index = get_hash(key)
 
@@ -84,10 +88,13 @@ class HashTable:
         while node is not None and node.key != key:
             prev_node = node
             node = node.next
-
-
+        if node is None:
+            print(f"ERROR: '{key}' not found!")
+            return None
+        else:
             self.size -= 1
-
+            # TODO: finish node deletion
+            self.check_lf()
 
 
 # TODO: class method: write hash function using ascii numbers
